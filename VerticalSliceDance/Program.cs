@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using VerticalSliceDance.Features.DanceStudios.CreateStudio;
 using VerticalSliceDance.Features.DanceStudios.DeleteStudio;
 using VerticalSliceDance.Features.DanceStudios.GetStudios;
+using VerticalSliceDance.Features.Instructors.CreateInstructor;
+using VerticalSliceDance.Features.Instructors.GetInstructorsByStudio;
 using VerticalSliceDance.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,5 +30,7 @@ app.MapControllers();
 app.MapGetStudiosEndpoint();
 app.MapCreateStudioEndpoint();
 app.MapDeleteStudioEndpoint();
+app.MapCreateInstructorEndpoint();
+app.MapGetInstructorByStudioEndpoint();
 
 app.Run();

@@ -25,9 +25,6 @@
     <Folder Include="Features\DanceClasses\GetClassDetails\" />
     <Folder Include="Features\DanceClasses\CreateClass\" />
     <Folder Include="Features\DanceClasses\DeleteClass\" />
-    <Folder Include="Features\Instructors\GetInstructorsByStudio\" />
-    <Folder Include="Features\Instructors\CreateInstructor\" />
-    <Folder Include="Features\Instructors\UpdateInstructorContact\" />
   </ItemGroup>
 
 </Project>

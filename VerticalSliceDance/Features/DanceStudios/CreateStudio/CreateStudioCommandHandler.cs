@@ -2,28 +2,26 @@
 using VerticalSliceDance.Domain;
 using VerticalSliceDance.Infrastructure;
 
-namespace VerticalSliceDance.Features.DanceStudios.CreateStudio
+namespace VerticalSliceDance.Features.DanceStudios.CreateStudio;
+
+public class CreateStudioCommandHandler : IRequestHandler<CreateStudioCommand, string>
 {
-    public class CreateStudioCommandHandler : IRequestHandler<CreateStudioCommand, string>
+    private readonly AppDbContext _context;
+
+    public CreateStudioCommandHandler(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public CreateStudioCommandHandler(AppDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<string> Handle(CreateStudioCommand request, CancellationToken cancellationToken)
+    {
+        var dto = request.Dto;
 
-        public async Task<string> Handle(CreateStudioCommand request, CancellationToken cancellationToken)
-        {
-            _context.DanceStudios.Add(new DanceStudio
-            {
-                Name = request.Name,
-                Address = request.Address
-            });
+        var studio = new DanceStudio(dto.Name,dto.Address);
 
-            await _context.SaveChangesAsync(cancellationToken);
+        _context.DanceStudios.Add(studio);
+        await _context.SaveChangesAsync(cancellationToken);
 
-            return $"Studio {request.Name} has been created.";
-        }
+        return $"Studio {request.Dto.Name} has been created.";
     }
 }

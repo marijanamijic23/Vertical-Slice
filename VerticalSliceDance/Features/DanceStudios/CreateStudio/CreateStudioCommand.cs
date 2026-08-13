@@ -2,6 +2,6 @@
 
 namespace VerticalSliceDance.Features.DanceStudios.CreateStudio
 {
-    public record CreateStudioCommand(string Name, string Address) : IRequest<string>;
+    public record CreateStudioCommand(StudioDTO Dto) : IRequest<string>;
 
 }
