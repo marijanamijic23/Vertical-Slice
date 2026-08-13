@@ -7,7 +7,7 @@
         public string LastName { get; set; } = string.Empty;
 
         public Guid StudioId { get; set; }
-        public DanceStudiocs DanceStudio { get; set; } = null!;
+        public DanceStudio DanceStudio { get; set; } = null!;
 
         public Instructor(string firstName, string lastName, Guid studioId)
         {
