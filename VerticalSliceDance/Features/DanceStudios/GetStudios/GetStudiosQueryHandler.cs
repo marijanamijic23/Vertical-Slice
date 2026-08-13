@@ -18,6 +18,7 @@ namespace VerticalSliceDance.Features.DanceStudios.GetStudios
            return await _context.DanceStudios
                 .Select(ds => new StudioDTO
                 {
+                    Id = ds.Id,
                     Name = ds.Name,
                     Address = ds.Address
                 })

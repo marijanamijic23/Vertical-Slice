@@ -19,6 +19,7 @@ namespace VerticalSliceDance.Features.Instructors.GetInstructorsByStudio
                 .Where(i => i.StudioId == request.StudioId)
                 .Select(i => new InstructorDTO
                 {
+                    Id = i.Id,
                     FirstName = i.FirstName,
                     LastName = i.LastName
                 })

@@ -1,10 +1,14 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using VerticalSliceDance.Features.DanceClasses.CreateClass;
+using VerticalSliceDance.Features.DanceClasses.DeleteClass;
+using VerticalSliceDance.Features.DanceClasses.GetClassDetails;
 using VerticalSliceDance.Features.DanceStudios.CreateStudio;
 using VerticalSliceDance.Features.DanceStudios.DeleteStudio;
 using VerticalSliceDance.Features.DanceStudios.GetStudios;
 using VerticalSliceDance.Features.Instructors.CreateInstructor;
 using VerticalSliceDance.Features.Instructors.GetInstructorsByStudio;
+using VerticalSliceDance.Features.Instructors.TransferToStudio;
 using VerticalSliceDance.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +19,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -23,9 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.MapGetStudiosEndpoint();
@@ -34,5 +38,8 @@ app.MapDeleteStudioEndpoint();
 app.MapCreateInstructorEndpoint();
 app.MapGetInstructorByStudioEndpoint();
 app.MapCreateDanceClassEndpoint();
+app.MapDeleteDanceClassEndpoint();
+app.MapGetClassDetailsEndpoint();
+app.MapTransferToStudioEndpoint();
 
 app.Run();
