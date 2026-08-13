@@ -6,7 +6,7 @@ namespace VerticalSliceDance.Features.DanceStudios.DeleteStudio
 {
     public class DeleteStudioCommandHandler : IRequestHandler<DeleteStudioCommand, string>
     {
-        AppDbContext _context;
+        private readonly AppDbContext _context;
 
         public DeleteStudioCommandHandler(AppDbContext context)
         {

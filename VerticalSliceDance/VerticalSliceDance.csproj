@@ -21,10 +21,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\DanceClasses\GetClassDetails\" />
-    <Folder Include="Features\DanceClasses\CreateClass\" />
-    <Folder Include="Features\DanceClasses\DeleteClass\" />
-  </ItemGroup>
-
 </Project>

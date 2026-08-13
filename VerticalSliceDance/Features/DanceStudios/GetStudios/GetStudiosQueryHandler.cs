@@ -6,7 +6,7 @@ namespace VerticalSliceDance.Features.DanceStudios.GetStudios
 {
     public class GetStudiosQueryHandler : IRequestHandler<GetStudiosQuery, List<StudioDTO>>
     {
-        AppDbContext _context;
+        private readonly AppDbContext _context;
 
         public GetStudiosQueryHandler(AppDbContext context)
         {

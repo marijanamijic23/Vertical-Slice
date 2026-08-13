@@ -6,7 +6,7 @@ namespace VerticalSliceDance.Features.Instructors.GetInstructorsByStudio
 {
     public class GetInstructorsByStudioQueryHandler : IRequestHandler<GetInstructorsByStudioQuery, List<InstructorDTO>>
     {
-        AppDbContext _dbContext;
+        private readonly AppDbContext _dbContext;
 
         public GetInstructorsByStudioQueryHandler(AppDbContext dbContext)
         {

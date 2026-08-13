@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VerticalSliceDance.Features.DanceClasses.CreateClass;
 using VerticalSliceDance.Features.DanceStudios.CreateStudio;
 using VerticalSliceDance.Features.DanceStudios.DeleteStudio;
 using VerticalSliceDance.Features.DanceStudios.GetStudios;
@@ -32,5 +33,6 @@ app.MapCreateStudioEndpoint();
 app.MapDeleteStudioEndpoint();
 app.MapCreateInstructorEndpoint();
 app.MapGetInstructorByStudioEndpoint();
+app.MapCreateDanceClassEndpoint();
 
 app.Run();

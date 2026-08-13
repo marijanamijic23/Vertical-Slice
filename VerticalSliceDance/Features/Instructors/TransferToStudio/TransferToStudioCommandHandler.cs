@@ -6,7 +6,7 @@ namespace VerticalSliceDance.Features.Instructors.TransferToStudio
 {
     public class TransferToStudioCommandHandler : IRequestHandler<TransferToStudioCommand, string>
     {
-        AppDbContext _context;
+        private readonly AppDbContext _context;
 
         public TransferToStudioCommandHandler(AppDbContext context)
         {
