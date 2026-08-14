@@ -22,7 +22,7 @@ namespace VerticalSliceDance.Features.Instructors.TransferToStudio
                 return $"Instructor with ID {request.InstructorId} not found.";
             }
 
-            instructor.StudioId = request.StudioId;
+            instructor.TransferToStudio(request.StudioId);
 
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -21,7 +21,7 @@ namespace VerticalSliceDance.Features.Instructors.GetInstructorsByStudio
                 {
                     Id = i.Id,
                     FirstName = i.FirstName,
-                    LastName = i.LastName
+                    LastName = i.LastName 
                 })
                 .ToListAsync(cancellationToken);
 

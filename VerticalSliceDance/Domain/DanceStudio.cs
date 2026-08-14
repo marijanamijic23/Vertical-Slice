@@ -8,10 +8,19 @@
 
         public DanceStudio(string name, string address)
         {
+            if(string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name is required.", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(address))
+            {
+                throw new ArgumentException("Name is required.", nameof(address));
+            }
+
             Name = name;
             Address = address;
         }
-
         public DanceStudio() { }
     }
 }
