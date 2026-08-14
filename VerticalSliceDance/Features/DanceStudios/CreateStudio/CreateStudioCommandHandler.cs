@@ -7,10 +7,12 @@ namespace VerticalSliceDance.Features.DanceStudios.CreateStudio;
 public class CreateStudioCommandHandler : IRequestHandler<CreateStudioCommand, string>
 {
     private readonly AppDbContext _context;
+    private readonly IPublisher _publisher;
 
-    public CreateStudioCommandHandler(AppDbContext context)
+    public CreateStudioCommandHandler(AppDbContext context,IPublisher publisher)
     {
         _context = context;
+        _publisher = publisher;
     }
 
     public async Task<string> Handle(CreateStudioCommand request, CancellationToken cancellationToken)
@@ -21,6 +23,13 @@ public class CreateStudioCommandHandler : IRequestHandler<CreateStudioCommand, s
 
         _context.DanceStudios.Add(studio);
         await _context.SaveChangesAsync(cancellationToken);
+
+        foreach (var domainEvent in studio.DomainEvents)
+        {
+            await _publisher.Publish(domainEvent, cancellationToken);
+        }
+
+        studio.ClearDomainEvents();
 
         return $"Studio {request.Dto.Name} has been created.";
     }

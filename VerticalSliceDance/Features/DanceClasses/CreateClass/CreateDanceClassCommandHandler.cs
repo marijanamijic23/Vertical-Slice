@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using VerticalSliceDance.Domain;
-using VerticalSliceDance.Features.DanceStudios.CreateStudio;
 using VerticalSliceDance.Infrastructure;
 
 namespace VerticalSliceDance.Features.DanceClasses.CreateClass 
@@ -8,10 +7,12 @@ namespace VerticalSliceDance.Features.DanceClasses.CreateClass
     public class CreateDanceClassCommandHandler : IRequestHandler<CreateDanceClassCommand, string>
     {
         private readonly AppDbContext _context;
+        private readonly IPublisher _publisher;
 
-        public CreateDanceClassCommandHandler(AppDbContext context)
+        public CreateDanceClassCommandHandler(AppDbContext context, IPublisher publisher)
         {
             _context = context;
+            _publisher = publisher;
         }
 
         public async Task<string> Handle(CreateDanceClassCommand request, CancellationToken cancellationToken)
@@ -22,6 +23,13 @@ namespace VerticalSliceDance.Features.DanceClasses.CreateClass
 
             _context.DanceClasses.Add(danceClass);
             await _context.SaveChangesAsync(cancellationToken);
+
+            foreach (var domainEvent in danceClass.DomainEvents)
+            {
+                await _publisher.Publish(domainEvent, cancellationToken);
+            }
+
+            danceClass.ClearDomainEvents();
 
             return $"Dance class {danceClass.Title} has been added.";
     }

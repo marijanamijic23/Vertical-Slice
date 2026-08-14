@@ -1,6 +1,11 @@
-﻿namespace VerticalSliceDance.Domain
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using VerticalSliceDance.Domain.Common;
+using VerticalSliceDance.Features.DanceClasses.CreateClass;
+using VerticalSliceDance.Features.DanceClasses.DeleteClass;
+
+namespace VerticalSliceDance.Domain
 {
-    public class DanceClass
+    public class DanceClass : AggregateRoot
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Title { get; set; } = string.Empty;
@@ -26,8 +31,15 @@
             Title = title;
             InstructorId = instructorId;
             Schedule = schedule;
+
+            AddDomainEvent(new CreateDanceClassDomainEvent(Id,Title));
         }
 
-        public DanceClass() { }
+        public void Delete()
+        {
+            AddDomainEvent(new DeleteDanceClassDomainEvent(Id, Title)); 
+        }
+        
+        
     }
 }
