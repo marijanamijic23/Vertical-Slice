@@ -7,7 +7,7 @@ namespace VerticalSliceDance.Features.DanceClasses.CreateClass
     {
         public static void MapCreateDanceClassEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapPost("c", async (CreateDanceClassCommand command, [FromServices] ISender mediator, CancellationToken ct) =>
+            app.MapPost("/api/dance-classes/", async (CreateDanceClassCommand command, [FromServices] ISender mediator, CancellationToken ct) =>
             {
                 var result = await mediator.Send(command, ct);
                 return Results.Ok(result);

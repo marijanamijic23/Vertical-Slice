@@ -16,6 +16,7 @@ namespace VerticalSliceDance.Features.DanceClasses.GetClassDetails
         public async Task<ClassDetailsDTO?> Handle(GetClassDetailsQuery request, CancellationToken cancellationToken)
         {
            return await _context.DanceClasses
+                .AsNoTracking()
                 .Where(dc => dc.Id == request.Id)
                 .Select(dc => new ClassDetailsDTO
                 {

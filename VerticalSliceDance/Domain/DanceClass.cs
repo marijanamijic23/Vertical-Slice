@@ -32,14 +32,14 @@ namespace VerticalSliceDance.Domain
             InstructorId = instructorId;
             Schedule = schedule;
 
-            AddDomainEvent(new CreateDanceClassDomainEvent(Id,Title));
+            AddDomainEvent(new CreateDanceClassDomainEvent(Id, Title));
         }
 
         public void Delete()
         {
-            AddDomainEvent(new DeleteDanceClassDomainEvent(Id, Title)); 
+            AddDomainEvent(new DeleteDanceClassDomainEvent(Id, Title));
         }
-        
-        
+
+        private DanceClass() { }
     }
 }

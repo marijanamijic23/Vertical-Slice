@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using VerticalSliceDance.Domain;
 using VerticalSliceDance.Infrastructure;
 
@@ -18,6 +19,13 @@ namespace VerticalSliceDance.Features.Instructors.CreateInstructor
         public async Task<string> Handle(CreateInstructorCommand request, CancellationToken cancellationToken)
         {
             var dto = request.Dto;
+
+            var studioExists = await _context.DanceStudios.AnyAsync(s => s.Id == dto.StudioId,cancellationToken);
+
+            if (!studioExists)
+            {
+                return $"Studio with Id {dto.StudioId} does not exist.";
+            }
 
             var instructor = new Instructor(dto.FirstName, dto.LastName, dto.StudioId);
 

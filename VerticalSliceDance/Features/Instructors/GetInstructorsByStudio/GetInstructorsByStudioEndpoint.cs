@@ -7,7 +7,7 @@ namespace VerticalSliceDance.Features.Instructors.GetInstructorsByStudio
    {
         public static void MapGetInstructorByStudioEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/api/instructors", async (Guid studioId,[FromServices] ISender mediator, CancellationToken ct) =>
+            app.MapGet("/api/instructors/{studioId}", async (Guid studioId,[FromServices] ISender mediator, CancellationToken ct) =>
             {
                 var result = await mediator.Send(new GetInstructorsByStudioQuery(studioId), ct);
                 return Results.Ok(result);
