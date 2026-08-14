@@ -1,8 +1,9 @@
-﻿using VerticalSliceDance.Features.Instructors.TransferToStudio;
+﻿using VerticalSliceDance.Features.Instructors.CreateInstructor;
+using VerticalSliceDance.Features.Instructors.TransferToStudio;
 
 namespace VerticalSliceDance.Domain
 {
-    public class Instructor
+    public class Instructor : AggregateRoot
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; } = string.Empty;
@@ -31,6 +32,8 @@ namespace VerticalSliceDance.Domain
             FirstName = firstName;
             LastName = lastName;
             StudioId = studioId;
+
+            AddDomainEvent(new CreateInstructorDomainEvent(Id,FirstName, LastName));
         }
 
         public void TransferToStudio(Guid newStudioId)
@@ -45,7 +48,10 @@ namespace VerticalSliceDance.Domain
                 throw new InvalidOperationException("Instructor is already assigned to this studio.");
             }
 
+            var oldStudioId = StudioId;
             StudioId = newStudioId; 
+
+            AddDomainEvent(new TransferToStudioDomainEvent(Id, FirstName, LastName,oldStudioId, newStudioId));
         }
         public Instructor() { }
     }
