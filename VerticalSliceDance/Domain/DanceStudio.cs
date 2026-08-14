@@ -1,12 +1,11 @@
 ﻿using VerticalSliceDance.Domain.Common;
 using VerticalSliceDance.Features.DanceStudios.CreateStudio;
+using VerticalSliceDance.Features.DanceStudios.DeleteStudio;
 
 namespace VerticalSliceDance.Domain
 {
-    public class DanceStudio
+    public class DanceStudio : AggregateRoot
     {
-        public readonly List<IDomainEvent> _domainEvents = new();
-        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
@@ -26,10 +25,13 @@ namespace VerticalSliceDance.Domain
             Name = name;
             Address = address;
 
-            _domainEvents.Add(new CreateStudioDomainEvents(Id, Name));
+            AddDomainEvent(new CreateStudioDomainEvents(Id, Name));
         }
 
-        public void ClearDomainEvents() => _domainEvents.Clear();
+        public void DeleteStudio()
+        {
+            AddDomainEvent(new DeleteStudioDomainEvent(Id, Name));
+        }
         public DanceStudio() { }
     }
 }
